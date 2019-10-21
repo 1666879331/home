@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        ul{
+            list-style: none;   
+        }
+    </style>
+</head>
+<body>
+    <button onclick="get_data()">点击获取数据</button>
+    <ul id="example">
+        <li v-for="(item,index) in arr" :key="index">
+            {{ item[index] }}
+        </li>
+    </ul>
+    <script>
+        var example = new Vue({
+            el:'#example',
+            data:{
+                arr:[]
+            }
+        });
+
+        function get_data(){
+            axios.get('https://www.apiopen.top/journalismApi').then((res)=>{
+                console.log(res);
+                example.arr = res.data.data.auto;
+            }).catch((err)=>{throw err;});
+        }
+    </script>
+</body>
+</html>
